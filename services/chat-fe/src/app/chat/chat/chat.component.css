@@ -1,0 +1,21 @@
+p {
+  color: black;
+}
+
+::ng-deep nb-layout-column {
+  display: flex;
+  justify-content: center;
+}
+
+:host {
+  display: flex;
+}
+
+nb-chat {
+  width: 500px;
+  margin: 1rem;
+}
+
+nb-layout {
+  width: 100%;
+}

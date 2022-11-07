@@ -1,0 +1,103 @@
+{
+  "name": "message",
+  "connector": "rest",
+  "baseURL": "",
+  "crud": false,
+  "options": {
+    "baseUrl": "$CHAT_SERVICE_URL",
+    "headers": {
+      "accept": "application/json",
+      "content-type": "application/json"
+    }
+  },
+  "operations": [
+    {
+      "template": {
+        "method": "GET",
+        "url": "/messages",
+        "headers": {
+          "Authorization": "{token}"
+        },
+        "query": {
+          "filter": "{filter}"
+        }
+      },
+      "functions": {
+        "getMessage": ["token","filter"]
+      }
+    },
+    {
+      "template": {
+        "method": "POST",
+        "url": "/messages",
+        "headers": {
+          "Authorization": "{token}"
+        },
+        "body": "{data}"
+      },
+      "functions": {
+        "createMessage": ["data","token"]
+      }
+    },
+    {
+      "template": {
+        "method": "GET",
+        "url": "/message-recipients",
+        "headers": {
+          "Authorization": "{token}"
+        },
+        "query": {
+          "filter": "{filter}"
+        }
+      },
+      "functions": {
+        "getMessageRecipients": ["token","filter"]
+      }
+    },
+    {
+      "template": {
+        "method": "POST",
+        "url": "/message-recipients",
+        "headers": {
+          "Authorization": "{token}"
+        },
+        "body": "{data}"
+      },
+      "functions": {
+        "createMessageRecipients": ["data","token"]
+      }
+    },
+    {
+      "template": {
+        "method": "PATCH",
+        "url": "/messages/{id}/message-recipients",
+        "headers": {
+          "Authorization": "{token}"
+        },
+        "query": {
+          "where": "{where}"
+        },
+        "body": "{data}"
+      },
+      "functions": {
+        "updateMsgRecipients": ["id", "data", "token", "where"]
+      }
+    },
+    {
+      "template": {
+        "method": "POST",
+        "url": "/channel/get-or-create",
+        "headers": {
+          "Authorization": "{token}"
+        },
+        "body": {
+          "memberIds" : "{menberIds}"
+        }
+      },
+      "functions": {
+        "getOrCreateChannel": ["menberIds"]
+      }
+    }
+    
+  ]
+}

@@ -1,0 +1,15 @@
+<nb-layout>
+    <nb-layout-header class="logout-container">
+        <button class="btn-logout" (click)="chatService.logout()">logout</button>
+    </nb-layout-header>
+    <nb-layout-column>
+        <nb-card size="small">
+            <nb-list>
+                <nb-list-item *ngFor="let user of users" (click)="redirectToChat(user)">
+                    <nb-user [name]="user.firstName + ' ' + user.lastName" [title]="user.username">
+                    </nb-user>
+                </nb-list-item>
+            </nb-list>
+        </nb-card>
+    </nb-layout-column>
+</nb-layout>

@@ -1,0 +1,50 @@
+<nb-layout>
+    <nb-layout-column>
+        <nb-card>
+            <nb-card-header>
+                <h1 class="text-center">Welcome to Chat Application</h1>
+            </nb-card-header>
+            <nb-card-body>
+                <div class="">
+                    <div>
+                        <form [formGroup]="loginForm">
+                            <nb-form-field class="form-field">
+                                <input type="text" nbInput status="basic" formControlName="username"
+                                    placeholder="username">
+                                <div class="error-msg"
+                                    *ngIf="loginForm.get('username')?.hasError('required') && loginForm.get('username')?.touched">
+                                    Username is required.
+                                </div>
+                            </nb-form-field>
+                            <nb-form-field class="form-field">
+                                <input [type]="showPassword ? 'text' :'password'" formControlName="password" nbInput
+                                    placeholder="username">
+                                <button class="field-icon-btn" nbSuffix nbButton ghost
+                                    (click)="showPassword=!showPassword">
+                                    <nb-icon [icon]="showPassword ? 'eye-outline' : 'eye-off-2-outline'" pack="eva"
+                                        [attr.aria-label]="showPassword ? 'hide password' : 'show password'">
+                                    </nb-icon>
+                                </button>
+                                <div class="error-msg"
+                                    *ngIf="loginForm.get('password')?.hasError('required') && loginForm.get('password')?.touched">
+                                    Password is required.
+                                </div>
+                            </nb-form-field>
+                        </form>
+                        <div class="form-field login-btn-field">
+                            <button nbButton hero status="primary" shape="semi-round" (click)="login()" >Login</button>
+                        </div>
+                    </div>
+                    <div class="btn-login align-center cursor-pointer" (click)="loginOrSignup()">
+                        <div>
+                            <img src="/assets/images/google.png" alt="" width="120px" height="60px">
+                        </div>
+                        <div class="">
+                            login or signup using Google
+                        </div>
+                    </div>
+                </div>
+            </nb-card-body>
+        </nb-card>
+    </nb-layout-column>
+</nb-layout>

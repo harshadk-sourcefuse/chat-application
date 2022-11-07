@@ -1,0 +1,93 @@
+{
+  "name": "message",
+  "connector": "rest",
+  "baseURL": "",
+  "crud": false,
+  "options": {
+    "baseUrl": "$AUTHENTICATION_SERVICE_URL",
+    "headers": {
+      "accept": "application/json",
+      "content-type": "application/json"
+    }
+  },
+  "operations": [
+    {
+      "template": {
+        "method": "GET",
+        "url": "/auth/google",
+        "fullResponse": "true",
+        "query": {
+          "client_id": "{clientId}",
+          "client_secret": "{clientSecret}"
+        }
+      },
+      "functions": {
+        "googleLogin": [
+          "clientId",
+          "clientSecret"
+        ]
+      }
+    },
+    {
+      "template": {
+        "method": "GET",
+        "url": "/auth/google-auth-redirect",
+        "query": {
+          "code": "{code}",
+          "state": "{state}"
+        }
+      },
+      "functions": {
+        "googleOauthRedirect": [
+          "code",
+          "state"
+        ]
+      }
+    },
+    {
+      "template": {
+        "method": "GET",
+        "url": "/auth/me",
+        "query": {},
+        "headers": {
+          "Authorization": "{token}"
+        }
+      },
+      "functions": {
+        "authMe": [
+          "token"
+        ]
+      }
+    },
+    {
+      "template": {
+        "method": "POST",
+        "url": "/auth/token",
+        "body": {
+          "code": "{code}",
+          "clientId": "{clientId}"
+        }
+      },
+      "functions": {
+        "authToken": [
+          "code",
+          "clientId"
+        ]
+      }
+    },
+    {
+      "template": {
+        "method": "GET",
+        "url": "/auth/users",
+        "headers": {
+          "Authorization": "{token}"
+        }
+      },
+      "functions": {
+        "getUsers": [
+          "token"
+        ]
+      }
+    }
+  ]
+}

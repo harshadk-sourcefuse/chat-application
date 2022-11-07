@@ -1,0 +1,30 @@
+﻿// Copyright (c) 2022 Sourcefuse Technologies
+//
+// This software is released under the MIT License.
+// https://opensource.org/licenses/MIT
+import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
+import {juggler} from '@loopback/repository';
+import * as config from './auth.datasource.config.json';
+
+// Observe application's life cycle to disconnect the datasource when
+// application is stopped. This allows the application to be shut down
+// gracefully. The `stop()` method is inherited from `juggler.DataSource`.
+// Learn more at https://loopback.io/doc/en/lb4/Life-cycle.html
+@lifeCycleObserver('datasource')
+export class AuthDataSource
+  extends juggler.DataSource
+  implements LifeCycleObserver
+{
+  static dataSourceName = 'auth';
+  static readonly defaultConfig = config;
+
+  constructor(
+    @inject('datasources.config.auth', {optional: true})
+    dsConfig: object = config,
+  ) {
+    dsConfig = Object.assign({}, dsConfig, {
+      options: {baseUrl: process.env.AUTHENTICATION_SERVICE_URL},
+    });
+    super(dsConfig);
+  }
+}
